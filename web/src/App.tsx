@@ -13,7 +13,9 @@ type Recipe = {
 };
 type PantryMode = "basics" | "provided" | "missing";
 
-const API_URL = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
+const API_URL = import.meta.env.DEV
+  ? ""
+  : (import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
 function App() {
   const [ingredients, setIngredients] = useState<string[]>([]);
   const [draft, setDraft] = useState("");
@@ -53,7 +55,7 @@ function App() {
       setError("Adicione pelo menos um ingrediente para começar.");
       return;
     }
-    if (!API_URL) {
+    if (!API_URL && !import.meta.env.DEV) {
       setError("A API ainda não foi configurada. Defina VITE_API_URL no arquivo .env.local ou nas variáveis do Cloudflare Pages.");
       return;
     }
