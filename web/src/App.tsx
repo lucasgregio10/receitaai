@@ -33,6 +33,10 @@ function App() {
 
   function addIngredient(value = draft) {
     const clean = value.trim().replace(/\s+/g, " ");
+    if (clean.length > 50) {
+      setError("Cada ingrediente pode ter no máximo 50 caracteres.");
+      return;
+    }
     if (!clean || ingredients.some((i) => i.toLocaleLowerCase("pt-BR") === clean.toLocaleLowerCase("pt-BR"))) {
       setDraft("");
       return;
@@ -53,6 +57,14 @@ function App() {
   async function generate() {
     if (!ingredients.length) {
       setError("Adicione pelo menos um ingrediente para começar.");
+      return;
+    }
+    if (ingredients.length > 30) {
+      setError("Você pode adicionar até 30 ingredientes.");
+      return;
+    }
+    if (ingredients.some((ingredient) => ingredient.length > 50)) {
+      setError("Cada ingrediente pode ter no máximo 50 caracteres. Remova ou corrija os itens maiores.");
       return;
     }
     if (!API_URL && !import.meta.env.DEV) {
@@ -138,7 +150,7 @@ function App() {
               <div className="p-6 sm:p-10">
                 <div className="flex items-center justify-between"><label className="text-sm font-bold text-forest">Ingredientes disponíveis</label><span className="text-xs font-medium text-muted">{ingredientCount}/30 adicionados</span></div>
                 <form className="mt-3 flex gap-2" onSubmit={(e) => { e.preventDefault(); addIngredient(); }}>
-                  <div className="relative flex-1"><Plus className="absolute left-4 top-1/2 -translate-y-1/2 text-muted" size={18}/><input value={draft} onChange={(e) => setDraft(e.target.value)} placeholder="Ex.: ovos, queijo, abobrinha..." className="h-14 w-full rounded-xl border border-line bg-[#FAF9F6] pl-11 pr-4 text-sm outline-none transition placeholder:text-muted/70 focus:border-olive focus:ring-4 focus:ring-olive/10"/></div>
+                  <div className="relative flex-1"><Plus className="absolute left-4 top-1/2 -translate-y-1/2 text-muted" size={18}/><input value={draft} maxLength={50} onChange={(e) => setDraft(e.target.value)} placeholder="Ex.: ovos, queijo, abobrinha..." className="h-14 w-full rounded-xl border border-line bg-[#FAF9F6] pl-11 pr-4 text-sm outline-none transition placeholder:text-muted/70 focus:border-olive focus:ring-4 focus:ring-olive/10"/></div>
                   <button type="submit" className="flex h-14 w-14 items-center justify-center rounded-xl bg-forest text-white transition hover:bg-olive" aria-label="Adicionar ingrediente"><Plus/></button>
                 </form>
                 <div className="mt-5 flex min-h-24 flex-wrap content-start gap-2">

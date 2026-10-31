@@ -214,12 +214,25 @@ export default {
       return json({ error: "Corpo da requisição inválido." }, 400, cors);
     }
 
-    const ingredients = Array.isArray(input.ingredients)
-      ? [...new Set(input.ingredients.map((v) => String(v).trim().toLocaleLowerCase("pt-BR")).filter(Boolean))]
-      : [];
+    if (!Array.isArray(input.ingredients)) {
+      return json({ error: "Informe os ingredientes como uma lista." }, 400, cors);
+    }
 
-    if (ingredients.length < 1 || ingredients.length > 30 || ingredients.some((v) => v.length > 50)) {
-      return json({ error: "Informe entre 1 e 30 ingredientes (até 50 caracteres cada)." }, 400, cors);
+    const ingredients = [...new Set(
+      input.ingredients
+        .filter((value): value is string => typeof value === "string")
+        .map((value) => value.trim().toLocaleLowerCase("pt-BR"))
+        .filter(Boolean)
+    )];
+
+    if (ingredients.length === 0) {
+      return json({ error: "Adicione pelo menos um ingrediente." }, 400, cors);
+    }
+    if (ingredients.length > 30) {
+      return json({ error: "Você pode informar até 30 ingredientes." }, 400, cors);
+    }
+    if (ingredients.some((value) => value.length > 50)) {
+      return json({ error: "Cada ingrediente pode ter no máximo 50 caracteres." }, 400, cors);
     }
 
     const servings = Math.min(12, Math.max(1, Math.round(Number(input.servings) || 2)));
