@@ -1,0 +1,13 @@
+name = "receitaai-api"
+main = "src/index.ts"
+compatibility_date = "2026-10-31"
+workers_dev = true
+
+[ai]
+binding = "AI"
+remote = true
+
+[vars]
+ALLOWED_ORIGINS = "http://localhost:5173,https://SEU-PROJETO.pages.dev"
+TEXT_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+IMAGE_MODEL = "@cf/black-forest-labs/flux-1-schnell"

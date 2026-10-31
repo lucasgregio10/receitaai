@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { font-family: "DM Sans", sans-serif; color: #263d32; background: #f8f7f2; font-synthesis: none; text-rendering: optimizeLegibility; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; min-width: 320px; }
+button, input, select { font: inherit; }
+.font-display { font-family: "Playfair Display", Georgia, serif; }
+.bg-cream { background-color: #f8f7f2; }
+.text-ink { color: #263d32; }
+.text-forest { color: #263d32; }
+.bg-forest { background-color: #263d32; }
+.text-cream { color: #f8f7f2; }
+.bg-cream { background-color: #f8f7f2; }
+.text-olive { color: #71815a; }
+.bg-olive { background-color: #71815a; }
+.text-muted { color: #777d73; }
+.bg-sage { background-color: #e4e9dc; }
+.text-sage { color: #c7d2bd; }
+.bg-terracotta { background-color: #ad654c; }
+.text-terracotta { color: #ad654c; }
+.bg-clay { background-color: #d7a58e; }
+.border-line { border-color: #e8e6dc; }
+.border-sage { border-color: #d7e0cf; }
+.shadow-soft { box-shadow: 0 8px 24px rgba(38,61,50,.06); }
+.shadow-card { box-shadow: 0 24px 70px rgba(38,61,50,.12); }
+.skeleton { background: linear-gradient(90deg,#e9ece4 25%,#f5f6f2 50%,#e9ece4 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; }
+@keyframes shimmer { to { background-position: -200% 0; } }
+.line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+::selection { background: #d7e0cf; color: #263d32; }
