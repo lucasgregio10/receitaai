@@ -61,6 +61,16 @@ Abra a URL indicada pelo Vite (normalmente `http://localhost:5173`).
 
 ## 3. Configurar e publicar o Worker
 
+O repositório agora tem um `package.json` e um `package-lock.json` na raiz, com os diretórios `web` e `worker` como workspaces npm. Isso permite que o Cloudflare instale dependências mesmo quando o build começa na raiz.
+
+Se estiver usando **Workers Builds** conectado ao GitHub para publicar a API, configure:
+
+- **Root directory:** `/` (raiz do repositório)
+- **Build command:** `npm run typecheck`
+- **Deploy command:** `npm run deploy`
+
+Os scripts da raiz encaminham os comandos ao workspace `worker`.
+
 Na pasta `worker`, edite `wrangler.toml`:
 
 - `name`: nome único do Worker.
@@ -89,6 +99,13 @@ npx wrangler deploy
 Guarde a URL exibida, por exemplo `https://receitaai-api.SEUA-CONTA.workers.dev`.
 
 ## 4. Publicar o frontend no Cloudflare Pages
+
+O frontend é publicado separadamente. No **Cloudflare Pages**, você pode manter o diretório raiz como `/` e configurar:
+
+- **Build command:** `npm run build`
+- **Build output directory:** `web/dist`
+
+O script da raiz compila o workspace `web`. Como alternativa, se configurar `web` como diretório raiz, use `npm run build` e `dist` como pasta de saída.
 
 Crie `web/.env.production` (ou configure a variável no painel Pages):
 

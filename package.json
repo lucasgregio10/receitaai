@@ -1,0 +1,14 @@
+{
+  "name": "receitaai",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "web",
+    "worker"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace=web",
+    "typecheck": "npm run typecheck --workspace=worker",
+    "deploy": "npm run deploy --workspace=worker"
+  }
+}
